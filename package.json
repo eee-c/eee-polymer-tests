@@ -4,6 +4,7 @@
   "description": "Sane Polymer test setup (including generator)",
   "main": "index.js",
   "scripts": {
+    "postinstall" : "./generator.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "./generator.js",

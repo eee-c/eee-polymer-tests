@@ -24,6 +24,10 @@
     "url": "https://github.com/eee-c/eee-polymer-tests/issues"
   },
   "homepage": "https://github.com/eee-c/eee-polymer-tests",
+  "dependencies": {
+    "colors": ">0.0",
+    "minimist": ">0.0"
+  },
   "peerDependencies": {
     "karma-jasmine": "~0.2.0",
     "karma-chrome-launcher": ">0.0"

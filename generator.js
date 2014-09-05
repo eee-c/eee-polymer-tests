@@ -9,6 +9,7 @@ if (/node_modules\/eee-polymer-tests/.test(process.cwd())) {
 var fs = require('fs');
 var readline = require('readline');
 var parseArgs = require('minimist');
+var bower = require('bower');
 require('colors');
 
 var KARMA_CONF = 'karma.conf.js';
@@ -31,6 +32,8 @@ function generate() {
   if (okKarmaConf()) generateKarmaConf();
   if (okPolymerSetup()) generatePolymerSetup();
   if (okTestSkeleton()) generateTestSkeleton();
+  if (okBower()) generateBower();
+  okElements();
 
   console.log("Done!\n");
 }
@@ -90,6 +93,47 @@ function _testFilename() {
     join('');
 
   return  'test/' + camel + 'Spec.js';
+}
+
+function okElements() {
+  if (!fs.existsSync('elements')) {
+    var message = '[WARN] There is no elements subdirectory for Polymer ' +
+                  'elements. Tests will fail!';
+    console.log(message.red);
+    return false;
+  }
+  return true;
+}
+
+function generateBower() {
+  var npmJson = JSON.parse(fs.readFileSync('package.json'));
+  var bowerJson = {
+    "name": npmJson.name,
+    "version": "0.0.0",
+    "description": npmJson.description,
+    "ignore": [
+      "**/.*",
+      "node_modules",
+      "bower_components",
+      "test",
+      "tests"
+    ],
+    "dependencies": {
+      "polymer": "Polymer/polymer"
+    }
+  };
+
+  fs.writeFileSync('bower.json', JSON.stringify(bowerJson, undefined, 2));
+
+  bower.commands
+    .install()
+    .on('end', function (installed) {
+        console.log('Polymer installed');
+     });
+}
+
+function okBower() {
+  return _okOverwrite('bower.json');
 }
 
 function _okOverwrite(filename) {

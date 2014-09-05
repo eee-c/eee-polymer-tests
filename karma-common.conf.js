@@ -24,6 +24,7 @@ exports.mixin_common_opts = function(karma, opts) {
      */
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/platform/platform.js',
       'test/PolymerSetup.js',
       {pattern: 'elements/**', included: false, served: true},
       {pattern: 'bower_components/**', included: false, served: true},

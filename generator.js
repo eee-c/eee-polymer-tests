@@ -102,6 +102,12 @@ function okElements() {
     console.log(message.red);
     return false;
   }
+  if (!fs.existsSync('elements/' + element + '.html')) {
+    var message = '[WARN] There is no elements/' + element + '.html ' +
+                  'element to be tested. Tests will fail!';
+    console.log(message.red);
+    return false;
+  }
   return true;
 }
 

@@ -8,6 +8,7 @@ if (/node_modules\/eee-polymer-tests/.test(process.cwd())) {
 
 var fs = require('fs');
 var readline = require('readline');
+var tty = require('tty');
 var parseArgs = require('minimist');
 var bower = require('bower');
 require('colors');
@@ -21,8 +22,11 @@ parseCommandLine();
 if (element) {
   generate();
 }
-else {
+else if (tty.isatty(process.stdin)) {
   queryForElementName();
+}
+else {
+  console.log('Nothing to generate.');
 }
 
 function generate() {

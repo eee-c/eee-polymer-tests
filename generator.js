@@ -15,19 +15,23 @@ require('colors');
 
 var KARMA_CONF = 'karma.conf.js';
 var POLYMER_SETUP = 'test/PolymerSetup.js';
+var DOTFILE = '.eee-polymer-tests-generated';
 
 var element, force;
 
 parseCommandLine();
+
+if (fs.existsSync(DOTFILE) && !force) {
+  console.log('The spec generator has already been run. Won\'t overwrite without --force.');
+  process.exit(0);
+}
+
 if (element) {
   generate();
+  process.exit(0);
 }
-else if (tty.isatty(process.stdin)) {
-  queryForElementName();
-}
-else {
-  console.log('Nothing to generate.');
-}
+
+queryForElementName();
 
 function generate() {
   console.log("\nGenerating test setup for: " + element);
@@ -37,6 +41,7 @@ function generate() {
   if (okPolymerSetup()) generatePolymerSetup();
   if (okTestSkeleton()) generateTestSkeleton();
   if (okBower()) generateBower();
+  generateDotFile();
   okElements();
 
   console.log("Done!\n");
@@ -144,6 +149,10 @@ function generateBower() {
 
 function okBower() {
   return _okOverwrite('bower.json');
+}
+
+function generateDotFile() {
+  fs.openSync(DOTFILE, 'w');
 }
 
 function _okOverwrite(filename) {

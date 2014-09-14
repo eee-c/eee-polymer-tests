@@ -63,15 +63,11 @@ function okKarmaConf() {
 
 function generatePolymerSetup() {
   var template = __dirname + '/templates/PolymerSetup.js';
-  fs.readFile(template, 'utf8', function (err, data) {
-    if (err) {
-      console.log(err);
-      process.exit(1);
-    }
+  var content = fs.
+    readFileSync(template).
+    replace(/\{\{element-name\}\}/g, element);
 
-    var content = data.replace(/\{\{element-name\}\}/g, element);
-    fs.writeFile(POLYMER_SETUP, content);
-  });
+  fs.writeFileSync(POLYMER_SETUP, content);
 }
 
 function okPolymerSetup() {
@@ -80,15 +76,11 @@ function okPolymerSetup() {
 
 function generateTestSkeleton() {
   var template = __dirname + '/templates/SkeletonSpec.js';
-  fs.readFile(template, 'utf8', function (err, data) {
-    if (err) {
-      console.log(err);
-      process.exit(1);
-    }
+  var content = fs.
+    readFileSync(template).
+    replace(/\{\{element-name\}\}/g, element);
 
-    var content = data.replace(/\{\{element-name\}\}/g, element);
-    fs.writeFile(_testFilename(), content);
-  });
+  fs.writeFileSync(_testFilename(), content);
 }
 
 function okTestSkeleton() {

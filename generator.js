@@ -53,8 +53,9 @@ function ensureTestDirectory() {
 }
 
 function generateKarmaConf() {
-  fs.createReadStream(__dirname + '/templates/karma.conf.js').
-    pipe(fs.createWriteStream(KARMA_CONF));
+  var content = fs.
+    readFileSync(__dirname + '/templates/karma.conf.js', 'utf8');
+  fs.writeFileSync(KARMA_CONF, content);
 }
 
 function okKarmaConf() {

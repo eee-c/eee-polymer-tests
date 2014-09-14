@@ -64,7 +64,7 @@ function okKarmaConf() {
 function generatePolymerSetup() {
   var template = __dirname + '/templates/PolymerSetup.js';
   var content = fs.
-    readFileSync(template).
+    readFileSync(template, 'utf8').
     replace(/\{\{element-name\}\}/g, element);
 
   fs.writeFileSync(POLYMER_SETUP, content);
@@ -77,7 +77,7 @@ function okPolymerSetup() {
 function generateTestSkeleton() {
   var template = __dirname + '/templates/SkeletonSpec.js';
   var content = fs.
-    readFileSync(template).
+    readFileSync(template, 'utf8').
     replace(/\{\{element-name\}\}/g, element);
 
   fs.writeFileSync(_testFilename(), content);
@@ -113,7 +113,7 @@ function okElements() {
 }
 
 function generateBower() {
-  var npmJson = JSON.parse(fs.readFileSync('package.json'));
+  var npmJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
   var bowerJson = {
     "name": npmJson.name,
     "version": "0.0.0",

@@ -16,7 +16,7 @@ document.getElementsByTagName("head")[0].appendChild(link);
 var POLYMER_READY = false;
 beforeEach(function(done) {
   function waitForPolymer() {
-    if (Polymer) {
+    if (Polymer && Polymer.whenReady) {
       Polymer.whenReady(done);
       return;
     }

@@ -20,7 +20,11 @@ beforeEach(function(done) {
       Polymer.whenReady(done);
       return;
     }
-    setTimeout(waitForPolymer, 1000);
+    if (Polymer && Polymer.whenPolymerReady) {
+      Polymer.whenPolymerReady(done);
+      return;
+    }
+    setTimeout(waitForPolymer, 200);
   }
   waitForPolymer();
 

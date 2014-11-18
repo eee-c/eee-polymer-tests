@@ -8,14 +8,6 @@ exports.mixin_common_opts = function(karma, opts) {
     // frameworks to use
     frameworks: ['jasmine'],
 
-    // START: karma_changes
-    /**
-     * Compile HTML into JS so that they can be used as templates
-     */
-    preprocessors: {
-      'test/*.html': 'html2js'
-    },
-
     /**
      * Don't include Polymer HTML and JS because Polymer is very
      * particular about the order in which they are added. Serve them,
@@ -24,13 +16,12 @@ exports.mixin_common_opts = function(karma, opts) {
      */
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/platform/platform.js',
+      'bower_components/webcomponentsjs/webcomponents.js',
       'test/PolymerSetup.js',
       {pattern: 'elements/**', included: false, served: true},
       {pattern: 'bower_components/**', included: false, served: true},
       'test/**/*Spec.js'
     ],
-    // END: karma_changes
 
     // list of files to exclude
     exclude: [
